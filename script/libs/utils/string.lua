@@ -1,8 +1,15 @@
 local s = {}
-function s.sprit(str, kgr)
-    str = "test/text"
-    kgr = "/"
-    for i = 1, #str do
+function s.split(str, ts)
+    if ts == nil then return {} end
 
+    local t = {};
+    i = 1
+    for s in string.gmatch(str, "([^" .. ts .. "]+)") do
+        t[i] = s
+        i = i + 1
     end
+
+    return t
 end
+
+return s
