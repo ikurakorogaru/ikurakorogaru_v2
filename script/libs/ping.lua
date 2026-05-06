@@ -4,14 +4,26 @@ local p = {}
 
 function pings.libs_innums(pos, num)
     local paths = sprit(pos, "/")
-    local numpos = num
+    local nowpos = nums
     for k, v in ipairs(paths) do
-        if numpos[v] == nil then
-            numpos[v] = {}
+        if k == #paths then
+            if nowpos[v] == nil then
+                nowpos[v] = {
+                    value = nil,
+                    children = {}
+                }
+            end
+            nowpos[v]["value"] = num
+        else
+            if nowpos[v] == nil or type(nowpos[v]["children"]) ~= "table" then
+                nowpos[v] = {
+                    value = nil,
+                    children = {}
+                }
+            end
+            nowpos = nowpos[v]["children"]
         end
-        numpos = numpos[v]
     end
-    pos = num
 end
 
 function p.setnum(path, num)
@@ -21,7 +33,22 @@ function p.setnum(path, num)
 end
 
 function p.getnum(pos)
-    return nums
+    local path = sprit(pos, "/")
+    local nowpos = nums
+    for k, v in ipairs(path) do
+        if nowpos[v] == nil or type(nowpos[v]) ~= "table" then
+            return nil
+        end
+        if #path == k then
+            nowpos = nowpos[v]["value"]
+        else
+            nowpos = nowpos[v]["children"]
+        end
+        if nowpos == nil then
+            return nil
+        end
+    end
+    return nowpos
 end
 
 return p

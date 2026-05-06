@@ -2,7 +2,9 @@ local directorys = {
     "script.libs.external.patpat",
     "script.libs.utils.string",
     "script.libs.ping",
+    "script.script.mainmodel.head.rotate",
     "script.script.skull.main",
+    "script.script.ui.on"
 
 }
 for k, v in pairs(directorys) do
