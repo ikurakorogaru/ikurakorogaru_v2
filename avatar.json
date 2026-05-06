@@ -1,0 +1,12 @@
+{
+  "name": "v2",
+  "description": "E58280E584A1",
+  "authors": [
+    "ikurakorogaru",
+    "tarakotodomaru",
+    "§c§r§c0§k0§r§c0§k§k1§r§c_11§k1§r§c1§k_§r§c1§k1§r§c1§k0"
+  ],
+  "color": "#5555ff",
+  "version": "0.0.0a",
+  "autoScripts": ["script.load"]
+}
