@@ -1,11 +1,7 @@
 local directorys = {
-    "script.libs.external.patpat",
-    "script.libs.utils.string",
-    "script.libs.ping",
-    "script.script.mainmodel.head.rotate",
-    "script.script.skull.main",
-    "script.script.ui.on"
-
+    "script.script.mainmodel.setup",
+    "script.script.ui.on",
+    "script.script.test",
 }
 for k, v in pairs(directorys) do
     local tryto, msg = pcall(require, v)

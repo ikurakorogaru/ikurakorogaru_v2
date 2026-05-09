@@ -1,9 +1,9 @@
 local nums = {}
-local sprit = require("script.libs.utils.string").split
+local split = require("script.lib.layer1.utils.string").split
 local p = {}
 
-function pings.libs_innums(pos, num)
-    local paths = sprit(pos, "/")
+function pings.libsInnums(path, num)
+    local paths = split(path, "/")
     local nowpos = nums
     for k, v in ipairs(paths) do
         if k == #paths then
@@ -28,12 +28,12 @@ end
 
 function p.setnum(path, num)
     if path ~= nil then
-        pings.libs_innums(path, num)
+        pings.libsInnums(path, num)
     end
 end
 
 function p.getnum(pos)
-    local path = sprit(pos, "/")
+    local path = split(pos, "/")
     local nowpos = nums
     for k, v in ipairs(path) do
         if nowpos[v] == nil or type(nowpos[v]) ~= "table" then
