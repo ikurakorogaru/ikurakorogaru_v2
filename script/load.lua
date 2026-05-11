@@ -1,5 +1,5 @@
 local directorys = {
-    "script.script.mainmodel.setup",
+    "script.script.setups",
     "script.script.ui.on",
     "script.script.test",
 }

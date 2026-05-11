@@ -1,17 +1,20 @@
 local directories = {
     ["layer1"] = {
         ["ping"] = require("script.lib.layer1.ping"),
+        ["tick"] = require("script.lib.layer1.tick"),
+
         ["utils"] = {
             ["string"] = require("script.lib.layer1.utils.string"),
             ["table"] = require("script.lib.layer1.utils.table"),
         },
-        ["ui"] = {
-            ["border"] = require("script.lib.layer1.ui.border"),
+        ["external"] = {
+            ["patpat"] = require("script.lib.layer1.external.patpat"),
         },
-        ["tick"] = require("script.lib.layer1.tick"),
     },
     ["layer2"] = {
-        ["patpat"] = require("script.lib.layer2.external.patpat"),
+        ["ui"] = {
+            ["border"] = require("script.lib.layer2.ui.border"),
+        },
     },
 
 }
