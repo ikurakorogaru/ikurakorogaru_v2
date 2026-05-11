@@ -1,2 +1,2 @@
 # ikurakorogaru_v2
-alpha
+0.1.0a

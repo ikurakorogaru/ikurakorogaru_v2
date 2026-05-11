@@ -1,16 +1,19 @@
 local uib = {}
 -- template
--- {
--- "x"=,
--- "y"=,
--- "z"=,
--- "pitch"=,
--- "yaw"=,
--- "roll"=,
--- "w"=,
--- "h"=,
--- "stroke"=,
--- }
+--[[
+{
+x=,
+y=,
+z=,
+pitch=,
+yaw=,
+roll=,
+w=,
+h=,
+stroke=,
+light=,
+}
+]]
 function uib.newwindow(inputs)
     local mywindow = {}
     local part = models.ui.window:newPart("window_" .. math.random(), "WORLD")
@@ -25,6 +28,7 @@ function uib.newwindow(inputs)
         mywindow[i]:setDimensions(16, 16)
         mywindow[i]:setUVPixels(i - 1, 0)
         mywindow[i]:setRegion(1, 1)
+        mywindow[i]:setLight(inputs.light)
         if i == 1 then
             mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.01)
             mywindow[i]:setSize(inputs.w + inputs.stroke * 2, inputs.h + inputs.stroke * 2)
@@ -48,6 +52,7 @@ function uib.setwindow(part, inputs)
         mywindow[i]:setDimensions(16, 16)
         mywindow[i]:setUVPixels(i - 1, 0)
         mywindow[i]:setRegion(1, 1)
+        mywindow[i]:setLight(inputs.light)
         if i == 1 then
             mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.01)
             mywindow[i]:setSize(inputs.w + inputs.stroke * 2, inputs.h + inputs.stroke * 2)
