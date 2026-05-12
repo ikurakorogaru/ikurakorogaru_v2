@@ -2,7 +2,6 @@ local directorys = {
     "script.script.setups",
     "script.script.ui.on",
     "script.script.test",
-    "script.script.footprint",
     "script.lib.external.patpat"
 }
 for k, v in pairs(directorys) do

@@ -10,6 +10,7 @@ local directories = {
             ["string"] = require("script.lib.layer1.utils.string"),
             ["table"] = require("script.lib.layer1.utils.table"),
         },
+        ["draw"] = require("script.lib.layer1.draw")
     },
     ["layer2"] = {
         ["ui"] = {
