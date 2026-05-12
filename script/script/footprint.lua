@@ -14,6 +14,7 @@ local par = {
     stroke = 1,
     light = 15,
 }
+local nowchange = false
 local bordernow = 1
 local borders = {}
 for i = 1, 21 do
@@ -21,14 +22,14 @@ for i = 1, 21 do
 end
 function events.post_render(delta, context, matrix)
     delt = t + delta
-    if player:isOnGround() then
-        par.yaw = math.random() * 360
+    if player:isOnGround() and not nowchange then
         par.x = pos.x * 16
         par.y = pos.y * 16 + 0.02
         par.z = pos.z * 16
-        par.w = math.sin(delt) * 15
-        par.h = math.cos(delt) * 15
+        par.yaw = delt
+        par.roll = delt
         borders[bordernow] = uib.setwindow(borders[bordernow], par)
+        nowchange = true
     end
 end
 
@@ -38,6 +39,7 @@ function events.tick()
         if bordernow > 21 then
             bordernow = 1
         end
+        nowchange = false
     end
     pos = player:getPos()
     t = t + 1

@@ -1,4 +1,7 @@
 local directories = {
+    ["external"] = {
+        ["patpat"] = require("script.lib.external.patpat"),
+    },
     ["layer1"] = {
         ["ping"] = require("script.lib.layer1.ping"),
         ["tick"] = require("script.lib.layer1.tick"),
@@ -6,9 +9,6 @@ local directories = {
         ["utils"] = {
             ["string"] = require("script.lib.layer1.utils.string"),
             ["table"] = require("script.lib.layer1.utils.table"),
-        },
-        ["external"] = {
-            ["patpat"] = require("script.lib.layer1.external.patpat"),
         },
     },
     ["layer2"] = {
