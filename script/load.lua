@@ -2,6 +2,7 @@ local directorys = {
     "script.script.setups",
     "script.script.ui.on",
     "script.script.test",
+    "script.script.footprint",
 }
 for k, v in pairs(directorys) do
     local tryto, msg = pcall(require, v)
