@@ -19,5 +19,5 @@ function b.newButton(inputs)
     for k, v in ipairs(split(path, ".")) do
         pos = pos[v]
     end
-    local part = pos:newPart()
+    local part = pos:newPart("button" .. math.random(1, 10000))
 end

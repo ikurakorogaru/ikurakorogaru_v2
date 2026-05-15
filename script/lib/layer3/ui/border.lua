@@ -41,11 +41,11 @@ function uib.newwindow(inputs)
         mywindow[i]:setUVPixels(0, 0)
         mywindow[i]:setRegion(1, 1)
         if i == 1 then
-            mywindow[i]:setColor(inputs.col.out.x, inputs.col.out.y, inputs.col.out.z)
+            mywindow[i]:setColor(inputs.col.out)
             mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.01)
             mywindow[i]:setSize(inputs.w + inputs.stroke * 2, inputs.h + inputs.stroke * 2)
         else
-            mywindow[i]:setColor(inputs.col.ins.x, inputs.col.ins.y, inputs.col.ins.z)
+            mywindow[i]:setColor(inputs.col.ins)
             mywindow[i]:setPos(inputs.w / 2, inputs.h / 2, 0)
             mywindow[i]:setSize(inputs.w, inputs.h)
         end
@@ -74,11 +74,11 @@ function uib.setwindow(part, inputs)
         mywindow[i]:setUVPixels(0, 0)
         mywindow[i]:setRegion(1, 1)
         if i == 1 then
-            mywindow[i]:setColor(inputs.col.out.x, inputs.col.out.y, inputs.col.out.z)
+            mywindow[i]:setColor(inputs.col.out)
             mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.01)
             mywindow[i]:setSize(inputs.w + inputs.stroke * 2, inputs.h + inputs.stroke * 2)
         else
-            mywindow[i]:setColor(inputs.col.ins.x, inputs.col.ins.y, inputs.col.ins.z)
+            mywindow[i]:setColor(inputs.col.ins)
             mywindow[i]:setPos(inputs.w / 2, inputs.h / 2, 0)
             mywindow[i]:setSize(inputs.w, inputs.h)
         end
