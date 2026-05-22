@@ -1,12 +1,14 @@
 local directorys = {
-    "script.script.setups",
-    "script.script.ui.on",
-    "script.script.test",
-    "script.lib.external.patpat"
+	"script.script.setups",
+	"script.script.test",
+	"script.script.mainmodel.head.wavemove",
+	"script.lib.external.patpat"
 }
-for k, v in pairs(directorys) do
-    local tryto, msg = pcall(require, v)
-    if not tryto then
-        print(msg)
-    end
+local errors = 0
+for k, v in ipairs(directorys) do
+	local tryto, msg = pcall(require, v)
+	if not tryto then
+		print(msg)
+		errors = errors + 1
+	end
 end
