@@ -16,4 +16,18 @@ function t.deepcopy(orig)
     return copy
 end
 
+function t.merge(...)
+	local args = {...}
+	local result = {}
+	for k1,v1 in ipairs(args) do
+		for k2,v2 in pairs(v1) do
+			result[k2] = v2
+		end
+	end
+	print(result)
+	return result
+end
+
+
+
 return t

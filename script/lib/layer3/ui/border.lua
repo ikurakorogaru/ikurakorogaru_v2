@@ -13,16 +13,16 @@ h=,
 stroke=,
 light=,
 col={
-ins=,
-out=,
+inner=,
+outer=,
 },
 }
 ]]
 function uib.newwindow(inputs)
     if inputs.col == nil then
         inputs.col = {
-            ["ins"] = vectors.vec3(0.59375, 0.59375, 0.59375),
-            ["out"] = vectors.vec3(0.2578125, 0.2578125,
+            ["inner"] = vectors.vec3(0.59375, 0.59375, 0.59375),
+            ["outer"] = vectors.vec3(0.2578125, 0.2578125,
                 0.2578125)
         }
     end
@@ -41,11 +41,11 @@ function uib.newwindow(inputs)
         mywindow[i]:setUVPixels(0, 0)
         mywindow[i]:setRegion(1, 1)
         if i == 1 then
-            mywindow[i]:setColor(inputs.col.out)
-            mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.01)
+            mywindow[i]:setColor(inputs.col.outer)
+            mywindow[i]:setPos(inputs.w / 2 + inputs.stroke, inputs.h / 2 + inputs.stroke, 0.001)
             mywindow[i]:setSize(inputs.w + inputs.stroke * 2, inputs.h + inputs.stroke * 2)
         else
-            mywindow[i]:setColor(inputs.col.ins)
+            mywindow[i]:setColor(inputs.col.inner)
             mywindow[i]:setPos(inputs.w / 2, inputs.h / 2, 0)
             mywindow[i]:setSize(inputs.w, inputs.h)
         end

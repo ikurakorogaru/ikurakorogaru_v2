@@ -12,3 +12,6 @@ for k, v in ipairs(directorys) do
 		errors = errors + 1
 	end
 end
+if errors ~= 0 then
+	print("errors: "..errors)
+end
