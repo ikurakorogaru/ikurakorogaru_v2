@@ -9,6 +9,9 @@ w=,
 yaw=,
 pitch=,
 roll=,
+label=,
+labelsize=,
+labeloutline=,
 stroke=,
 light=,
 path=,
@@ -23,7 +26,12 @@ outer={
 x=,
 y=,
 z=,
-}
+},
+labeloutline={
+x=,
+y=,
+z=,
+},
 },
 }
 ]] --
@@ -74,15 +82,37 @@ function b.newbutton(inputs)
 			h = inputs.h,
 		})
 	)
-	clickfuncs[partname] = inputs
+	local label = part:newText("button_label")
+	label:setText(inputs.label)
+	label:setOutline(inputs.labeloutline)
+	if inputs.col.labeloutline ~= nil then
+		label:setOutlineColor(inputs.col.labeloutline)
+	else
+		label:setOutlineColor(1, 1, 1)
+	end
+	label:setScale(inputs.labelsize)
+	label:setPos(inputs.x, inputs.y + inputs.labelsize * 4, inputs.z - 0.001)
+	label:setAlignment("CENTER")
+	label:setLight(inputs.light)
+	label:setRot(inputs.pitch, inputs.yaw, inputs.roll)
+	clickfuncs[part] = inputs
 	return part
 end
 
 function events.mouse_press(button, action, modifier)
 	for k, v in pairs(clickfuncs) do
+		local partpos = k:getPos()
 		local eyePos = player:getPos() + vec(0, player:getEyeHeight(), 0)
 		local eyeEnd = eyePos + (player:getLookDir() * 20)
-		local hitLocation = { { vec((v.x + v.w / 2 + v.stroke) / 16, (v.y + v.h / 2 + v.stroke) / 16, (v.z - 0.01) / 16), vec((v.x - v.w / 2 - v.stroke) / 16, (v.y - v.h / 2 - v.stroke) / 16, (v.z) / 16) } } -- this is the block location of 0,0,0 in the world
+		local hitLocation = { { vec(
+			(v.x + v.w / 2 + v.stroke+partpos.x) / 16,
+			(v.y + v.h / 2 + v.stroke+partpos.y) / 16,
+			(v.z - 0.01+partpos.z) / 16
+		), vec(
+			(v.x - v.w / 2 - v.stroke+partpos.x) / 16,
+			(v.y - v.h / 2 - v.stroke+partpos.y) / 16,
+			(v.z + partpos.z) / 16
+		) } }
 		local aabb, hitPos, side, aabbHitIndex = raycast:aabb(eyePos, eyeEnd, hitLocation)
 		if aabb ~= nil then
 			v.onclick(button, action, modifier)
