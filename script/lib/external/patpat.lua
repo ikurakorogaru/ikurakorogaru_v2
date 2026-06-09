@@ -80,7 +80,7 @@ end
 
 local myPatters = {player = {}, head = {}}
 
-function events.tick()
+events.tick:register(function()
    if eventError then
       error(eventError)
    end
@@ -117,7 +117,7 @@ function events.tick()
          myPatters.head[i] = nil
       end
    end
-end
+end)
 
 avatar:store("petpet", function(uuid, time)
    local entity = world.getEntity(uuid)
@@ -339,14 +339,14 @@ key.press = function()
 end
 key.release = function() patting = false patTime = 0 end
 
-function events.tick()
+events.tick:register(function()
    if not patting then return end
 
    patTime = patTime + 1
    if patTime % conf.patDelay == 0 then
       patPat()
    end
-end
+end)
 
 -- return, made by Auria
 return playerEvents

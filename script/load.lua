@@ -1,17 +1,26 @@
 local directorys = {
 	"script.script.setups",
-	"script.script.test",
+	"script.lib.external.patpat",
 	"script.script.mainmodel.head.wavemove",
-	"script.lib.external.patpat"
+	"script.script.test",
 }
 local errors = 0
+local errormsgs = {}
 for k, v in ipairs(directorys) do
 	local tryto, msg = pcall(require, v)
 	if not tryto then
-		print(msg)
 		errors = errors + 1
+		errormsgs[errors] = msg
 	end
 end
-if errors ~= 0 then
-	print("errors: "..errors)
+function events.entity_init()
+	if host:isHost() then
+		if errors ~= 0 then
+			for i = 1, errors do
+				print("§cError No." .. i .. ":")
+				print(errormsgs[i])
+			end
+			print("§cERROR Total: " .. errors)
+		end
+	end
 end

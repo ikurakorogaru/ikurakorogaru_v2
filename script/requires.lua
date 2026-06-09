@@ -7,18 +7,16 @@ local directories = {
 		["utils"] = {
 			["string"] = require("script.lib.layer1.utils.string"),
 			["table"] = require("script.lib.layer1.utils.table"),
+			["number"] = require("script.lib.layer1.utils.number"),
 		},
 	},
 	["layer2"] = {
 		["draw"] = {
 			["rect"] = require("script.lib.layer2.draw.rect"),
 		},
+		["actionwheel"] = require("script.lib.layer2.actionwheel"),
 	},
 	["layer3"] = {
-		["ui"] = {
-			["border"] = require("script.lib.layer3.ui.border"),
-			["button"] = require("script.lib.layer3.ui.button"),
-		},
 	},
 
 }
