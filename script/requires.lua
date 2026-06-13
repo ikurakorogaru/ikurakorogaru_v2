@@ -20,5 +20,4 @@ local directories = {
 	},
 
 }
-
 return directories

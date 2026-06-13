@@ -2,6 +2,7 @@ local directorys = {
 	"script.script.setups",
 	"script.lib.external.patpat",
 	"script.script.mainmodel.head.wavemove",
+	"script.script.mainmodel.footprint",
 	"script.script.test",
 }
 local errors = 0
@@ -13,7 +14,7 @@ for k, v in ipairs(directorys) do
 		errormsgs[errors] = msg
 	end
 end
-function events.entity_init()
+events.entity_init:register(function()
 	if host:isHost() then
 		if errors ~= 0 then
 			for i = 1, errors do
@@ -23,4 +24,4 @@ function events.entity_init()
 			print("§cERROR Total: " .. errors)
 		end
 	end
-end
+end)

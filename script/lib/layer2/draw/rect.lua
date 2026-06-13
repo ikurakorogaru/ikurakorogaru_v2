@@ -24,9 +24,6 @@ function d.newrect(inputs)
     local paths = split(inputs.path, ".")
     local nowpos = models
     for k, v in ipairs(paths) do
-        if nowpos[v] == nil then
-            error("draw.rect:ERROR: path not found" .. v)
-        end
         nowpos = nowpos[v]
     end
     local part = nowpos:newPart(inputs.name .. "_" .. tostring(math.random(1, 10000)), "WORLD")
