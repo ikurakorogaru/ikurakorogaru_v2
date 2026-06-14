@@ -2,7 +2,7 @@ local newrect = require("script.requires").layer2.draw.rect.newrect
 local allrects = {}
 allrects.rects = {}
 local now = 1
-for i = 1, 10 do
+for i = 1, 5 do
 	allrects.rects[i] = newrect({
 		path = "model.footprints",
 		name = "footprint",
@@ -15,7 +15,6 @@ for i = 1, 10 do
 		pitch = 90,
 		roll = 0,
 		col = vectors.vec(0.75, 0.75, 0.75),
-		light = 15
 	})
 end
 allrects.strokes = {}
@@ -32,7 +31,6 @@ for i in pairs(allrects.rects) do
 		pitch = 90,
 		roll = 0,
 		col = vectors.vec(0.5, 0.5, 0.5),
-		light = 15
 	})
 end
 events.tick:register(function()
@@ -46,11 +44,11 @@ events.tick:register(function()
 	local nowpos = player:getPos()
 	allrects.rects[now]:setPos(nowpos.x * 16, nowpos.y * 16 + 0.2, nowpos.z * 16)
 	allrects.strokes[now]:setPos(nowpos.x * 16, nowpos.y * 16 + 0.1, nowpos.z * 16)
-	-- allrects.rects[now]:setRot(90, world.getTime()*16, 0)
-	-- allrects.strokes[now]:setRot(90, world.getTime()*16, 0)
-	local rand = math.random() * 360
-	allrects.rects[now]:setScale(math.sin(rand) * 16, math.cos(rand) * 16, 1)
-	rand = math.random() * 360
-	allrects.strokes[now]:setScale(math.sin(rand) * 16 + 1, 1, math.cos(rand) * 16 + 1)
+	allrects.rects[now]:setRot(90, math.random() * 360, 0)
+	allrects.strokes[now]:setRot(90, math.random() * 360, 0)
+	local rand = math.random() * math.pi
+	allrects.rects[now]:setScale(math.floor(math.abs(math.sin(rand)) * 16),math.floor( math.abs(math.cos(rand)) * 16), 1)
+	rand = math.random() * math.pi
+	allrects.strokes[now]:setScale(math.floor(math.abs(math.sin(rand)) * 16 + 1), math.floor(math.abs(math.cos(rand)) * 16 + 1), 1)
 	now = now % #allrects.rects + 1
 end)
