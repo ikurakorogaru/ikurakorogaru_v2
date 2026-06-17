@@ -26,7 +26,7 @@ function d.newrect(inputs)
     for k, v in ipairs(paths) do
         nowpos = nowpos[v]
     end
-    local part = nowpos:newPart(inputs.name .. "_" .. tostring(math.random(1, 10000)), "WORLD")
+    local part = nowpos:newPart(inputs.name, "WORLD")
     local mysprite = part:newSprite(inputs.name .. "_sprite")
     part:setPos(inputs.x, inputs.y, inputs.z)
     part:setRot(inputs.pitch, inputs.yaw, inputs.roll)
