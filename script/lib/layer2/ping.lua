@@ -5,7 +5,7 @@ local p = {}
 
 
 local function localInnums(path, num)
-    local paths = split(path, "/")
+    local paths = split(path, ".")
     local nowpos = nums
     for k, v in ipairs(paths) do
         if k == #paths then
@@ -43,7 +43,7 @@ function p.setnum(path, num, islocal)
 end
 
 function p.getnum(path)
-    local mpath = split(path, "/")
+    local mpath = split(path, ".")
     local nowpos = nums
     for k, v in ipairs(mpath) do
         if nowpos[v] == nil or type(nowpos[v]) ~= "table" then
