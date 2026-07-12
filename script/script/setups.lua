@@ -1,4 +1,5 @@
 vanilla_model.PLAYER:setVisible(false)
 events.entity_init:register(function()
 	renderer:setShadowRadius(0)
+	nameplate.LIST:setText(player:getName() .. " §8no english")
 end)
