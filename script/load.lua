@@ -3,6 +3,7 @@ local directorys = {
 	"script.lib.external.patpat",
 	"script.script.mainmodel.head.wavemove",
 	"script.script.mainmodel.footprint",
+	"script.script.actionwheel",
 	"script.script.test",
 }
 local errors = 0

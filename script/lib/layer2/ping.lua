@@ -17,7 +17,7 @@ local function localInnums(path, num)
             end
             nowpos[v]["value"] = num
         else
-            if nowpos[v] == nil or type(nowpos[v]["children"]) ~= "table" then
+            if nowpos[v] == nil then
                 nowpos[v] = {
                     value = nil,
                     children = {}
