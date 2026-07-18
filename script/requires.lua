@@ -1,23 +1,52 @@
 local directories = {
 	["external"] = {
-		["patpat"] = require("script.lib.external.patpat"),
+		["patpat"] = "script.lib.external.patpat",
 	},
 	["layer1"] = {
 		["utils"] = {
-			["string"] = require("script.lib.layer1.utils.string"),
-			["table"] = require("script.lib.layer1.utils.table"),
-			["number"] = require("script.lib.layer1.utils.number"),
+			["string"] = "script.lib.layer1.utils.string",
+			["table"] = "script.lib.layer1.utils.table",
+			["number"] = "script.lib.layer1.utils.number",
 		},
 	},
 	["layer2"] = {
-		["ping"] = require("script.lib.layer2.ping"),
+		["ping"] = "script.lib.layer2.ping",
 		["draw"] = {
-			["rect"] = require("script.lib.layer2.draw.rect"),
+			["rect"] = "script.lib.layer2.draw.rect",
 		},
-		["actionwheel"] = require("script.lib.layer2.actionwheel"),
 	},
 	["layer3"] = {
+		["actionwheel"] = "script.lib.layer3.actionwheel",
 	},
-
+	["testing"] = {
+		["01"] = "script.script.testlib"
+	}
 }
+
+local function forallkeys(inptable, func)
+	local outputs = {}
+	for k, v in pairs(inptable) do
+		if type(v) == "table" then
+			outputs[k] = forallkeys(v, func)
+		end
+		if type(v) == "string" then
+			outputs[k] = func(k, v)
+		end
+	end
+	return outputs
+end
+
+directories = forallkeys(directories, function(k, v)
+	local tryto, msg = pcall(require, v)
+	if not tryto then
+		if host:isHost() then
+			print("§cError loading module: " .. v .. " : " .. k)
+			print(msg)
+		end
+		return nil
+	end
+	if tryto then
+		return msg
+	end
+end)
 return directories

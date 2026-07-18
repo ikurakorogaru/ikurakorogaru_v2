@@ -27,4 +27,15 @@ function t.merge(...)
 	return result
 end
 
+function t.forallkeys(inptable, func)
+	for k, v in pairs(inptable) do
+		if type(v) == "table" then
+			t.forallkeys(v, func)
+		end
+		if type(k) == "string" then
+			func(k, v)
+		end
+	end
+end
+
 return t

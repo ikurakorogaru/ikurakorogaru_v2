@@ -1,5 +1,5 @@
 local ping = require("script.requires").layer2.ping
-local aw = require("script.requires").layer2.actionwheel
+local aw = require("script.requires").layer3.actionwheel
 ping.setnum("actionwheel.pages", action_wheel:newPage(), true)
 print(aw)
 ----- default -----

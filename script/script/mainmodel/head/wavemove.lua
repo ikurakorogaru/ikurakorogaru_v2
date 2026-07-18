@@ -25,5 +25,14 @@ events.tick:register(function()
 				end
 			end
 		end
+	else
+		for k1, v1 in pairs(parts) do
+			for k2, v2 in pairs(v1) do
+				for k3, v3 in pairs(v2) do
+					v3:setPos(0, 0, 0)
+					v3:setRot(0, 0, 0)
+				end
+			end
+		end
 	end
 end)
