@@ -18,9 +18,6 @@ local directories = {
 	["layer3"] = {
 		["actionwheel"] = "script.lib.layer3.actionwheel",
 	},
-	["testing"] = {
-		["01"] = "script.script.testlib"
-	}
 }
 
 local function forallkeys(inptable, func)
