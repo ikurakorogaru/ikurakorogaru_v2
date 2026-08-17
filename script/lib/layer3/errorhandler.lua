@@ -1,7 +1,7 @@
 local eh = {}
 local ping = require("script.lib.layer2.ping")
 
-function eh.errorhandler(id, func)
+function eh.errorhandler(id, printerr, func)
 	local tryto, msg
 	if ping.get("errorhandler." .. id) == nil then
 		ping.set("errorhandler." .. id, {haserror = false, msg = ""})
