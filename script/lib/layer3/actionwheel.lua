@@ -1,4 +1,5 @@
 local aw = {}
+local ping = require("script.lib.layer2.ping")
 local clamp = require("script.lib.layer1.utils.number").clamp
 
 function aw.setColor(to, color, alpha, lighten)
@@ -11,4 +12,9 @@ function aw.setColor(to, color, alpha, lighten)
 	to:setToggleColor(nr, ng, nb)
 	return to
 end
+
+function aw.autoSync(action, saveto, def, delay)
+	local now = ping.get(saveto)
+end
+
 return aw

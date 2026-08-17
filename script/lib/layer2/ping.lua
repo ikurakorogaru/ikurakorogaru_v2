@@ -1,12 +1,12 @@
-local nums = {}
+local store = {}
 local split = require("script.lib.layer1.utils.string").split
 local p = {}
 
 
 
-local function localInnums(path, num)
+local function localSet(path, value)
     local paths = split(path, ".")
-    local nowpos = nums
+    local nowpos = store
     for k, v in ipairs(paths) do
         if k == #paths then
             if nowpos[v] == nil then
@@ -15,7 +15,7 @@ local function localInnums(path, num)
                     children = {}
                 }
             end
-            nowpos[v]["value"] = num
+            nowpos[v]["value"] = value
         else
             if nowpos[v] == nil then
                 nowpos[v] = {
@@ -28,23 +28,23 @@ local function localInnums(path, num)
     end
 end
 
-function pings.libsInnums(path, num)
-    localInnums(path, num)
+function pings.libsSet(path, value)
+    localSet(path, value)
 end
 
-function p.setnum(path, num, islocal)
+function p.set(path, value, islocal)
     if path ~= nil then
         if islocal then
-            localInnums(path, num)
+            localSet(path, value)
         else
-            pings.libsInnums(path, num)
+            pings.libsSet(path, value)
         end
     end
 end
 
-function p.getnum(path)
+function p.get(path)
     local mpath = split(path, ".")
-    local nowpos = nums
+    local nowpos = store
     for k, v in ipairs(mpath) do
         if nowpos[v] == nil or type(nowpos[v]) ~= "table" then
             return nil

@@ -27,6 +27,4 @@ events.entity_init:register(function()
 	end
 end)
 
-return (function()
-	return errors, errormsgs
-end)
+LoadErrors = errormsgs

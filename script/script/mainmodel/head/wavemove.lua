@@ -13,7 +13,7 @@ for k1, v1 in ipairs(models.model.root.Head.headgroup.rotatepivot:getChildren())
 end
 
 events.tick:register(function()
-	if ping.getnum("mainmodel.headmove") then
+	if ping.get("mainmodel.headmove") then
 		local t = world.getTime()
 		for k1, v1 in pairs(parts) do
 			-- groups[k1]:setRot(0, (k1 % 2 * 2 - 1) * t, 0)
