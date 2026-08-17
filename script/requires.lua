@@ -17,9 +17,11 @@ local directories = {
 	},
 	["layer3"] = {
 		["actionwheel"] = "script.lib.layer3.actionwheel",
+		["errorhandler"] = "script.lib.layer3.errorhandler",
 	},
 }
 
+local errortotal = 0
 local function forallkeys(inptable, func)
 	local outputs = {}
 	for k, v in pairs(inptable) do
@@ -37,7 +39,8 @@ directories = forallkeys(directories, function(k, v)
 	local tryto, msg = pcall(require, v)
 	if not tryto then
 		if host:isHost() then
-			print("§cError loading module: " .. v .. " : " .. k)
+			errortotal = errortotal + 1
+			print("§c(When loading) module Error ID. " .. v .. " : " .. k .. " :")
 			print(msg)
 		end
 		return nil
@@ -46,5 +49,12 @@ directories = forallkeys(directories, function(k, v)
 		return msg
 	end
 end)
+
+if host:isHost() then
+	if errortotal ~= 0 then
+		print("§c(When loading) module ERROR Total: " .. errortotal)
+	end
+end
+
 
 return directories

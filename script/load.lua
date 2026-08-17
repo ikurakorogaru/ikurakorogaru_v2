@@ -19,10 +19,10 @@ events.entity_init:register(function()
 	if host:isHost() then
 		if errors ~= 0 then
 			for i = 1, errors do
-				print("§cError No." .. i .. ":")
+				print("§c(When loading) Error No." .. i .. ":")
 				print(errormsgs[i])
 			end
-			print("§cERROR Total: " .. errors)
+			print("§c(When loading) ERROR Total: " .. errors)
 		end
 	end
 end)
