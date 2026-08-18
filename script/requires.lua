@@ -19,6 +19,11 @@ local directories = {
 		["actionwheel"] = "script.lib.layer3.actionwheel",
 		["errorhandler"] = "script.lib.layer3.errorhandler",
 	},
+	["layer4"] = {
+		["3dui"] = {
+			["hit"] = "script.lib.layer4.3dui.hit",
+		},
+	},
 }
 
 local errortotal = 0
