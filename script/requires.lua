@@ -2,11 +2,13 @@ local directories = {
 	["external"] = {
 		["patpat"] = "script.lib.external.patpat",
 	},
-	["layer1"] = {
+    ["layer1"] = {
+        ["hit"] = "script.lib.layer1.hit",
 		["utils"] = {
 			["string"] = "script.lib.layer1.utils.string",
 			["table"] = "script.lib.layer1.utils.table",
-			["number"] = "script.lib.layer1.utils.number",
+            ["number"] = "script.lib.layer1.utils.number",
+			["other"] = "script.lib.layer1.utils.other",
 		},
 	},
 	["layer2"] = {
@@ -21,7 +23,6 @@ local directories = {
 	},
 	["layer4"] = {
 		["3dui"] = {
-			["hit"] = "script.lib.layer4.3dui.hit",
 		},
 	},
 }

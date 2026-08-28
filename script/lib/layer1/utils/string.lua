@@ -4,8 +4,8 @@ function s.split(str, ts)
 
 	local t = {};
 	local i = 1
-	for s in string.gmatch(str, "([^" .. ts .. "]+)") do
-		t[i] = s
+	for st in string.gmatch(str, "([^" .. ts .. "]+)") do
+		t[i] = st
 		i = i + 1
 	end
 
