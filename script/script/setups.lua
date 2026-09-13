@@ -3,7 +3,7 @@ events.entity_init:register(function()
     renderer:setShadowRadius(0)
     nameplate.LIST:setText(toJson({
         {
-            text = player:getName(),
+            text = player:getName()..":banana_rotata_z:",
             hoverEvent = {
                 action = "show_text",
                 contents = {

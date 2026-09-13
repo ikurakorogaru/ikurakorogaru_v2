@@ -22,12 +22,12 @@ local directories = {
 		["errorhandler"] = "script.lib.layer3.errorhandler",
 	},
 	["layer4"] = {
-		["3dui"] = {
-		},
+		["window"] = "script.lib.layer4.window",
 	},
 }
 
 local errortotal = 0
+local errormsgs = {}
 local function forallkeys(inptable, func)
 	local outputs = {}
 	for k, v in pairs(inptable) do
@@ -46,6 +46,7 @@ directories = forallkeys(directories, function(k, v)
 	if not tryto then
 		if host:isHost() then
 			errortotal = errortotal + 1
+			errormsgs[errortotal] = msg
 			print("§c(When loading) module Error ID. " .. v .. " : " .. k .. " :")
 			print(msg)
 		end
@@ -62,5 +63,7 @@ if host:isHost() then
 	end
 end
 
+_G.errors = _G.errors or {}
+_G.errors.scriptLoad = {count = errortotal, msgs = {}}
 
 return directories

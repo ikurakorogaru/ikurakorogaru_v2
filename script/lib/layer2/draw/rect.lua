@@ -14,6 +14,7 @@ yaw=,
 roll=,
 col=,
 light=,
+world=,
 }
 
 
@@ -29,7 +30,7 @@ function d.newrect(inputs)
         end
         nowpos = nowpos[v]
     end
-    local positionPart = nowpos:newPart(inputs.name, "WORLD")
+    local positionPart = nowpos:newPart(inputs.name, ((not inputs.world) and "WORLD"))
     local rotationPart = positionPart:newPart(inputs.name .. "_rotation")
     local mysprite = rotationPart:newSprite(inputs.name .. "_sprite")
 

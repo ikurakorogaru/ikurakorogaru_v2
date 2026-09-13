@@ -1,5 +1,5 @@
 local o ={}
-function o.rotToVectors(yaw, roll, pitch)
+function o.rotToVectors(pitch, yaw, roll)
     yaw           = math.rad(yaw)
     roll          = math.rad(roll)
     pitch         = math.rad(pitch)

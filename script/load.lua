@@ -1,29 +1,28 @@
 local directorys = {
-	"script.script.setups",
-	"script.lib.external.patpat",
-	"script.script.mainmodel.head.wavemove",
-	"script.script.actionwheel",
-	"script.script.test",
+    "script.script.setups", "script.lib.external.patpat",
+    "script.script.mainmodel.head.wavemove", "script.script.actionwheel",
+    "script.script.test", "script.script.linemove","script.script.command"
 }
 local errors = 0
 local errormsgs = {}
 for k, v in ipairs(directorys) do
-	local tryto, msg = pcall(require, v)
-	if not tryto then
-		errors = errors + 1
-		errormsgs[errors] = msg
-	end
+    local tryto, msg = pcall(require, v)
+    if not tryto then
+        errors = errors + 1
+        errormsgs[errors] = msg
+    end
 end
 events.entity_init:register(function()
-	if host:isHost() then
-		if errors ~= 0 then
-			for i = 1, errors do
-				print("§c(When loading) Error No." .. i .. ":")
-				print(errormsgs[i])
-			end
-			print("§c(When loading) ERROR Total: " .. errors)
-		end
-	end
+    if host:isHost() then
+        if errors ~= 0 then
+            for i = 1, errors do
+                print("§c(When loading) Error No." .. i .. ":")
+                print(errormsgs[i])
+            end
+            print("§c(When loading) ERROR Total: " .. errors)
+        end
+    end
 end)
-
+_G.errors = _G.errors or {}
+_G.errors.scriptLoad = {count = errors, msgs = errormsgs}
 LoadErrors = errormsgs
