@@ -25,4 +25,3 @@ events.entity_init:register(function()
 end)
 _G.errors = _G.errors or {}
 _G.errors.scriptLoad = {count = errors, msgs = errormsgs}
-LoadErrors = errormsgs

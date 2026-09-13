@@ -64,6 +64,6 @@ if host:isHost() then
 end
 
 _G.errors = _G.errors or {}
-_G.errors.scriptLoad = {count = errortotal, msgs = {}}
+_G.errors.moduleLoad = {count = errortotal, msgs = errormsgs}
 
 return directories
