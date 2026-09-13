@@ -26,6 +26,7 @@ local window = require("script.requires")["layer4"].window
 -- hittestcursolX:setOpacity(1)
 local usewindow = nil
 ping.set("command.test", function() return "aaaa" end,true)
+
 events.ENTITY_INIT:register(function()
     errorhandler.errorhandler("test_window_init", true, function()
         usewindow = window.window({

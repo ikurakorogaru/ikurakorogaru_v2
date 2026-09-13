@@ -65,5 +65,6 @@ end
 
 _G.errors = _G.errors or {}
 _G.errors.moduleLoad = {count = errortotal, msgs = errormsgs}
+_G.errors.errorTotal = errortotal + (_G.errors.errorTotal or 0)
 
 return directories

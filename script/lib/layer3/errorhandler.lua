@@ -1,6 +1,7 @@
 local eh = {}
 local ping = require("script.lib.layer2.ping")
 
+local errors = 0
 function eh.errorhandler(id, printerr, func)
 	local tryto, msg
 	if ping.get("errorhandler." .. id) == nil then
@@ -11,6 +12,7 @@ function eh.errorhandler(id, printerr, func)
 		tryto, msg = pcall(func)
 		if not tryto then
 			ping.set("errorhandler." .. id, { haserror = true, msg = msg }, true)
+			errors = errors + 1
 			if printerr then
 				if host:isHost() then
 					print("§c(ErrorHandler) Error ID. " .. id .. ":")
@@ -20,6 +22,10 @@ function eh.errorhandler(id, printerr, func)
 		end
 	end
 	return tryto, msg
+end
+
+function eh.errors()
+	return errors
 end
 
 return eh

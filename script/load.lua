@@ -25,3 +25,4 @@ events.entity_init:register(function()
 end)
 _G.errors = _G.errors or {}
 _G.errors.scriptLoad = {count = errors, msgs = errormsgs}
+_G.errors.errorTotal = errors + (_G.errors.errorTotal or 0)
