@@ -18,32 +18,37 @@ local window = require("script.requires")["layer4"].window
 --     col = vec(0.85, 0.85, 0.85),
 --     light = 15
 -- })
--- local hittestcursolX = cursor.positionPart:newText("test_X")
--- hittestcursolX:setPos(0, 8, 0)
--- hittestcursolX:setText("(testtext)\n2lines\n3lines\n4lines!!\n§cr§2g§1b  §bc§dm§ey§0k§r\nikurakorogaru\ntarakotodomaru\ntest.lua(hittest)")
--- hittestcursolX:setScale(0.2)
--- hittestcursolX:setAlignment("CENTER")
--- hittestcursolX:setOpacity(1)
+local hittestcursolX = nil
 local usewindow = nil
-ping.set("command.test", function() return "aaaa" end,true)
-
+ping.set("command.test", function() return "aaaa" end, true)
+ping.set("command.test.getcursor",
+    (function() return tostring(usewindow.getCursor()) .. tostring(usewindow.isHovered()) end), true)
 events.ENTITY_INIT:register(function()
     errorhandler.errorhandler("test_window_init", true, function()
         usewindow = window.window({
             x = player:getPos().x,
-            y = player:getPos().y,
+            y = player:getPos().y + 1.5,
             z = player:getPos().z,
-            width = 100,
-            height = 100,
-            pitch = 0,
-            yaw = 0,
-            roll = 0,
-            path = "",
+            width = 16,
+            height = 32,
+            pitch = 30,
+            yaw = 30,
+            roll = 30,
+            path = "model",
             name = "test_window"
         })
+        hittestcursolX = models.model.test_window.test_window_rotation:newText("testcursoloverlay")
+        hittestcursolX:setText("testext")
+        hittestcursolX:setScale(0.2)
+        hittestcursolX:setAlignment("CENTER")
+        hittestcursolX:setOpacity(1)
     end)
 end)
-events.world_render:register(function()
+events.render:register(function(delta)
+    if usewindow ~= nil then
+        usewindow.render(delta)
+        hittestcursolX:setText(tostring(usewindow.getCursor()) .. "\n" .. tostring(usewindow.isHovered()))
+    end
     if player:isLoaded() then
         if ping.get("actionwheel.hittest") then
             errorhandler.errorhandler("hit_test", true, function()
@@ -54,5 +59,10 @@ events.world_render:register(function()
                 local hitresult = usewindow.getCursor()
             end)
         end
+    end
+end)
+events.TICK:register(function()
+    if usewindow ~= nil then
+        usewindow.tick()
     end
 end)

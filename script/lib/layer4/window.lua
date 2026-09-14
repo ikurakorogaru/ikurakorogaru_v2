@@ -21,75 +21,94 @@ utils.other = require("script.lib.layer1.utils.other")
 utils.table = require("script.lib.layer1.utils.table")
 local w = {}
 function w.window(args)
-    local path = split.split(args.path, ".")
     local windowpart = models
     local datas = {}
+    datas.name = args.name
     datas.pos = vec(args.x, args.y, args.z)
     datas.rot = vec(args.pitch, args.yaw, args.roll)
-    datas.width = args.width
-    datas.height = args.height
-    for k, v in ipairs(path) do
-        if windowpart[v] == nil then windowpart:addPart(v) end
-        windowpart = windowpart[v]
+    datas.size = vec(args.width, args.height)
+    datas.rawpath = args.path
+    datas.removed = false
+    for k, v in ipairs(split.split(datas.rawpath, ".")) do
+        if windowpart[v] == nil then
+            windowpart = windowpart:addPart(v)
+        else
+            windowpart = windowpart[v]
+        end
     end
     datas.path = windowpart
     local positionPart = datas.path:newPart(args.name, "WORLD")
     local rotationPart = positionPart:newPart(args.name .. "_rotation")
-    datas.positionPart = positionPart
-    datas.rotationPart = rotationPart
     datas.defrectargs = {
-        path = args.path .. "." .. args.name .. "." .. args.name .. "_rotation",
-        name = args.name,
+        path = datas.rawpath .. "." .. datas.name .. "." .. datas.name .. "_rotation",
+        name = datas.name,
         x = 0,
         y = 0,
         z = 0,
-        w = args.width,
-        h = args.height,
+        w = datas.size.x,
+        h = datas.size.y,
         pitch = 0,
         yaw = 0,
         roll = 0,
         col = vec(0.85, 0.85, 0.85),
         world = false
     }
-    rect.newrect(datas.defrectargs)
+    datas.background = rect.newrect(datas.defrectargs).sprite
+    datas.positionPart = positionPart
+    datas.rotationPart = rotationPart
+
     local function tick()
-        local right, up, forward = utils.other.rotToVectors(datas.rot.x,
-            datas.rot.y,
-            datas.rot.z)
+        if datas.removed then return end
+        local right, up, forward = utils.other.rotToVectors(datas.rot.x, datas.rot.y, datas.rot.z)
         datas.right = right
         datas.up = up
         datas.forward = forward
-        datas.cursor = hit.hit(vec(datas.pos.x, datas.pos.y, datas.pos.z),
-            right, up)
+        datas.cursor = hit.hit(datas.pos, right, up)
+        if datas.cursor ~= nil then
+            datas.cursor = datas.cursor * -16
+            datas.cursor = datas.cursor + vec(datas.size.x / 2, datas.size.y / 2)
+        end
         if datas.cursor then
             local x = datas.cursor.x
             local y = datas.cursor.y
 
             datas.hovered =
                 x >= 0 and
-                x <= datas.width and
+                x <= datas.size.x and
                 y >= 0 and
-                y <= datas.height
+                y <= datas.size.y
         else
             datas.hovered = false
         end
     end
     local function render(delta)
+        if datas.removed then return end
         if delta == nil then delta = 0 end
-        datas.positionPart:setPos(datas.pos.x, datas.pos.y, datas.pos.z)
-        datas.rotationPart:setRot(datas.rot.x, datas.rot.y, datas.rot.z)
+        datas.positionPart:setPos(datas.pos * 16)
+        datas.rotationPart:setRot(datas.rot)
+        datas.background:setSize(datas.size)
     end
 
     local returns = {}
+
+    local function remove()
+        datas.removed = true
+        datas.positionPart:remove()
+    end
+
     returns.getPos = (function() return datas.pos:copy() end)
     returns.getRot = (function() return datas.rot:copy() end)
-    returns.getCursor =
-        (function() return (datas.cursor or vec(0, 0)):copy() end)
-    returns.isHovered = (function() return true and datas.hovered end)
+    returns.getSize = (function() return datas.size:copy() end)
+    returns.setPos = (function(newPos) datas.pos = newPos:copy() end)
+    returns.setRot = (function(newRot) datas.rot = newRot:copy() end)
+    returns.setSize = (function(newSize) datas.size = newSize:copy() end)
+    returns.getCursor = (function() return (datas.cursor or vec(0, 0)):copy() end)
+    returns.isHovered = (function() return datas.hovered end)
     returns.debug = {}
-    returns.debug.getdata = (function() return utils.table.deepcopy(datas) end)
+    returns.debug.getdata = (function() return datas end)
     returns.tick = tick
     returns.render = render
+    returns.remove = remove
     return returns
 end
 

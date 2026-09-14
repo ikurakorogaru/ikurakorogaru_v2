@@ -23,5 +23,8 @@ function events.chat_send_message(msg)
         end
         
         print(pcall(ping.get("command"..coms),table.unpack(values)))
+        return nil
+    else
+        return msg
     end
 end

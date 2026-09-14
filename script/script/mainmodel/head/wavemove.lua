@@ -12,9 +12,9 @@ for k1, v1 in ipairs(models.model.root.Head.headgroup.rotatepivot:getChildren())
 	end
 end
 
-events.tick:register(function()
+events.render:register(function(delta)
 	if ping.get("actionwheel.mainmodel.headmove") then
-		local t = world.getTime()
+		local t = world.getTime(delta)
 		for k1, v1 in pairs(parts) do
 			-- groups[k1]:setRot(0, (k1 % 2 * 2 - 1) * t, 0)
 			for k2, v2 in pairs(v1) do
