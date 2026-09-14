@@ -39,11 +39,15 @@ function w.window(args)
     datas.path = windowpart
     local positionPart = datas.path:newPart(args.name, "WORLD")
     local rotationPart = positionPart:newPart(args.name .. "_rotation")
+    local moveOrigin = rotationPart:newPart(args.name .. "_moveorigin")
+    datas.positionPart = positionPart
+    datas.rotationPart = rotationPart
+    datas.moveOrigin = moveOrigin
     datas.defrectargs = {
-        path = datas.rawpath .. "." .. datas.name .. "." .. datas.name .. "_rotation",
+        path = datas.moveOrigin,
         name = datas.name,
-        x = 0,
-        y = 0,
+        x = datas.size.x / 2,
+        y = datas.size.y / 2,
         z = 0,
         w = datas.size.x,
         h = datas.size.y,
@@ -54,8 +58,6 @@ function w.window(args)
         world = false
     }
     datas.background = rect.newrect(datas.defrectargs).sprite
-    datas.positionPart = positionPart
-    datas.rotationPart = rotationPart
 
     local function tick()
         if datas.removed then return end
@@ -65,7 +67,7 @@ function w.window(args)
         datas.forward = forward
         datas.cursor = hit.hit(datas.pos, right, up)
         if datas.cursor ~= nil then
-            datas.cursor = datas.cursor * -16
+            datas.cursor = datas.cursor * 16
             datas.cursor = datas.cursor + vec(datas.size.x / 2, datas.size.y / 2)
         end
         if datas.cursor then
@@ -87,6 +89,7 @@ function w.window(args)
         datas.positionPart:setPos(datas.pos * 16)
         datas.rotationPart:setRot(datas.rot)
         datas.background:setSize(datas.size)
+        datas.moveOrigin:setPos(vec(-datas.size.x / 2, -datas.size.y / 2, 0))
     end
 
     local returns = {}
@@ -104,6 +107,7 @@ function w.window(args)
     returns.setSize = (function(newSize) datas.size = newSize:copy() end)
     returns.getCursor = (function() return (datas.cursor or vec(0, 0)):copy() end)
     returns.isHovered = (function() return datas.hovered end)
+    returns.getPath = (function() return datas.moveOrigin end)
     returns.debug = {}
     returns.debug.getdata = (function() return datas end)
     returns.tick = tick

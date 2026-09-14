@@ -22,19 +22,24 @@ world=,
 ]] --
 local split = require("script.lib.layer1.utils.string").split
 function d.newrect(inputs)
-    local paths = split(inputs.path, ".")
-    local nowpos = models
-    for k, v in ipairs(paths) do
-        if nowpos[v] == nil then
-            nowpos:newPart(v)
+    local nowpos = nil
+    if type(inputs.path) == "string" then
+        local paths = split(inputs.path, ".")
+        nowpos = models
+        for k, v in ipairs(paths) do
+            if nowpos[v] == nil then
+                nowpos:newPart(v)
+            end
+            nowpos = nowpos[v]
         end
-        nowpos = nowpos[v]
+    else
+        nowpos = inputs.path
     end
     local positionPart = nil
     if inputs.world == nil or inputs.world == true then
-        positionPart = nowpos:newPart(inputs.name,  "WORLD")
+        positionPart = nowpos:newPart(inputs.name, "WORLD")
     else
-        positionPart = nowpos:newPart(inputs.name,  "LOCAL")
+        positionPart = nowpos:newPart(inputs.name, "LOCAL")
     end
     local rotationPart = positionPart:newPart(inputs.name .. "_rotation")
     local mysprite = rotationPart:newSprite(inputs.name .. "_sprite")

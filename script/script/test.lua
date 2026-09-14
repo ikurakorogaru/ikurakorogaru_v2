@@ -4,20 +4,7 @@ local rect = require("script.requires")["layer2"]["draw"].rect
 local ping = require("script.requires")["layer2"].ping
 local window = require("script.requires")["layer4"].window
 
--- local cursor = rect.newrect({
---     path = "",
---     name = "test_cursor",
---     x = 0,
---     y = 0,
---     z = 0,
---     w = 16,
---     h = 16,
---     pitch = 0,
---     yaw = 0,
---     roll = 0,
---     col = vec(0.85, 0.85, 0.85),
---     light = 15
--- })
+local cursor = nil
 local hittestcursolX = nil
 local usewindow = nil
 ping.set("command.test", function() return "aaaa" end, true)
@@ -37,17 +24,37 @@ events.ENTITY_INIT:register(function()
             path = "model",
             name = "test_window"
         })
-        hittestcursolX = models.model.test_window.test_window_rotation:newText("testcursoloverlay")
+        cursor = rect.newrect({
+            path = usewindow.getPath(),
+            name = "test_cursor",
+            x = 0,
+            y = 0,
+            z = 0,
+            w = 4,
+            h = 4,
+            pitch = 0,
+            yaw = 0,
+            roll = 0,
+            col = vec(0.15, 0.15, 0.15),
+            light = 15,
+            world = false,
+        })
+        hittestcursolX = models.model.test_window.test_window_rotation.test_window_moveorigin:newText(
+            "testcursoloverlay")
         hittestcursolX:setText("testext")
-        hittestcursolX:setScale(0.2)
-        hittestcursolX:setAlignment("CENTER")
+        hittestcursolX:setScale(0.1)
+        hittestcursolX:setPos(vec(usewindow.getSize().x, usewindow.getSize().y, 0))
+        -- hittestcursolX:setAlignment("CENTER")
         hittestcursolX:setOpacity(1)
     end)
 end)
 events.render:register(function(delta)
-    if usewindow ~= nil then
+    if cursor ~= nil then
         usewindow.render(delta)
         hittestcursolX:setText(tostring(usewindow.getCursor()) .. "\n" .. tostring(usewindow.isHovered()))
+        if usewindow.isHovered() then
+            cursor.positionPart:setPos(vec(usewindow.getCursor().x, usewindow.getCursor().y, -0.01))
+        end
     end
     if player:isLoaded() then
         if ping.get("actionwheel.hittest") then

@@ -1,5 +1,5 @@
 local errorhandler = require("script.requires")["layer3"].errorhandler
-local lm = keybinds:newKeybind("linemove", "key.keyboard.z", false)
+local lm = keybinds:newKeybind("linemove", "key.keyboard.f4", false)
 local speed = 0.5
 events.TICK:register(function()
     errorhandler.errorhandler("linemove", true, function()
