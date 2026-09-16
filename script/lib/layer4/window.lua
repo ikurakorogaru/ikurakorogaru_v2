@@ -92,13 +92,13 @@ function w.window(args)
         datas.moveOrigin:setPos(vec(-datas.size.x / 2, -datas.size.y / 2, 0))
     end
 
-    local returns = {}
+
 
     local function remove()
         datas.removed = true
         datas.positionPart:remove()
     end
-
+    local returns = {}
     returns.getPos = (function() return datas.pos:copy() end)
     returns.getRot = (function() return datas.rot:copy() end)
     returns.getSize = (function() return datas.size:copy() end)

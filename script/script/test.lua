@@ -39,6 +39,7 @@ events.ENTITY_INIT:register(function()
             light = 15,
             world = false,
         })
+        usewindow.setRot(vec(0, 0, 0))
         hittestcursolX = models.model.test_window.test_window_rotation.test_window_moveorigin:newText(
             "testcursoloverlay")
         hittestcursolX:setText("testext")
@@ -49,7 +50,7 @@ events.ENTITY_INIT:register(function()
     end)
 end)
 events.render:register(function(delta)
-    if cursor ~= nil then
+    if hittestcursolX ~= nil then
         usewindow.render(delta)
         hittestcursolX:setText(tostring(usewindow.getCursor()) .. "\n" .. tostring(usewindow.isHovered()))
         if usewindow.isHovered() then
