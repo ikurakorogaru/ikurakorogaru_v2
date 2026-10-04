@@ -1,12 +1,16 @@
 local store = {}
 local split = require("script.lib.layer1.utils.string").split
+local tableutil = require("script.lib.layer1.utils.table")
 local p = {}
-
+local pingLog = {}
 
 
 local function localSet(path, value)
     local paths = split(path, ".")
     local nowpos = store
+    table.insert(pingLog, 1, {
+        time = client.getSystemTime(), path = path, value = value
+    })
     for k, v in ipairs(paths) do
         if k == #paths then
             if nowpos[v] == nil then
@@ -59,6 +63,15 @@ function p.get(path)
         end
     end
     return nowpos
+end
+
+function p.getPingLog()
+    return tableutil.deepcopy(pingLog)
+end
+
+p.debug = {}
+function p.debug.getPingTable()
+    return store
 end
 
 return p

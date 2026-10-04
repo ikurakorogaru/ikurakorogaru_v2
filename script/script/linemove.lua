@@ -1,14 +1,15 @@
 local errorhandler = require("script.requires")["layer3"].errorhandler
 local speed = 0.5
-local keyForwand = keybinds:newKeybind("linemove-forwand", "key.keyboard.up", false)
-local keyRight = keybinds:newKeybind("linemove-right", "key.keyboard.right", false)
-local keyLeft = keybinds:newKeybind("linemove-left", "key.keyboard.left", false)
-local keyBack = keybinds:newKeybind("linemove-back", "key.keyboard.down", false)
-local keyUp = keybinds:newKeybind("linemove-up", "key.keyboard.page.up", false)
-local keyDown = keybinds:newKeybind("linemove-down", "key.keyboard.page.down", false)
+local keyForwand = keybinds:newKeybind("linemove-forwand", "key.keyboard.i", false)
+local keyRight = keybinds:newKeybind("linemove-right", "key.keyboard.l", false)
+local keyLeft = keybinds:newKeybind("linemove-left", "key.keyboard.j", false)
+local keyBack = keybinds:newKeybind("linemove-back", "key.keyboard.k", false)
+local keyUp = keybinds:newKeybind("linemove-up", "key.keyboard.u", false)
+local keyDown = keybinds:newKeybind("linemove-down", "key.keyboard.o", false)
+local keyFast = keybinds:newKeybind("linemove-fast", "key.keyboard.left.control", false)
 
 events.TICK:register(function()
-    errorhandler.errorhandler("linemove", true, function()
+    errorhandler.errorhandler("linemove", true, true, function()
         local rot = player:getLookDir()
 
         local forward = vec(rot.x, 0, rot.z):normalized()
@@ -46,6 +47,9 @@ events.TICK:register(function()
         if keyDown:isPressed() then
             move = move - up
             pressed = true
+        end
+        if keyFast:isPressed() then
+            move = move * 2
         end
 
         if pressed then

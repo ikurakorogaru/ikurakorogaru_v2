@@ -1,13 +1,13 @@
 local h = {}
 
-function h.hit(origin, right, up)
+function h.hit(origin, right, up, rayOrigin, rayDir)
     right = right:normalized()
     up = up:normalized()
 
     local normal = right:crossed(up):normalized()
 
-    local rayOrigin = player:getPos() + vec(0, player:getEyeHeight(), 0)
-    local rayDir = player:getLookDir()
+    if rayOrigin == nil then rayOrigin = player:getPos() + vec(0, player:getEyeHeight(), 0) end
+    if rayDir == nil then rayDir = player:getLookDir() end
 
     local denominator = rayDir:dot(normal)
     if math.abs(denominator) < 0.000001 then

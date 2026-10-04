@@ -3,14 +3,30 @@ events.entity_init:register(function()
     local lastmsg = {}
     local hoverdmsg =
     [[
-GitHub: https://github.com/ikurakorogaru
-accounts: ikurakorogaru , tarakotodomaru
-languages: Japanese(native) , English(partial ≒1%)
-avatar repo: https://github.com/ikurakorogaru/ikurakorogaru_v2
-license: MIT
+§5local §fGitHub = §3https://github.com/ikurakorogaru
+]]
+    if player:getName() == "ikurakorogaru" or player:getName() == "tarakotodomaru" then
+        hoverdmsg = hoverdmsg ..
+            [[
+§5local §faccounts = §5{§3ikurakorogaru §f, §3tarakotodomaru§5}
+]]
+    else
+        hoverdmsg = hoverdmsg ..
+            [[
+§5local §fcreater = §5{§3ikurakorogaru §f, §3tarakotodomaru§5}
+]]
+    end
+    hoverdmsg = hoverdmsg .. [[
+§5local §flanguages = §5{§3Japanese(native) §f, §3English(partial <=1%)§5}
+§5local §favatar_repo = §3https://github.com/ikurakorogaru/ikurakorogaru_v2
+§5local §flicense = §3MIT
 ]]
     if _G.errors.errorTotal == 0 then
-        lastmsg = { text = " no english", color = "dark_gray" }
+        if player:getName() == "tarakotodomaru" or player:getName() == "ikurakorogaru" then
+            lastmsg = { text = " no english", color = "dark_gray" }
+        else
+            lastmsg = { text = "" }
+        end
     else
         lastmsg = { text = " LoadErrs: " .. _G.errors.errorTotal, color = "dark_red" }
     end
@@ -37,4 +53,7 @@ license: MIT
             }
         }
     }))
+end)
+events.TICK:register(function ()
+    
 end)

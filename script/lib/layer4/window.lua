@@ -55,9 +55,16 @@ function w.window(args)
         yaw = 0,
         roll = 0,
         col = vec(0.85, 0.85, 0.85),
-        world = false
+        world = false,
     }
     datas.background = rect.newrect(datas.defrectargs).sprite
+
+    datas.hitOption = {}
+    local function setHitOption(origin, dir)
+        datas.hitOption.origin = origin
+        datas.hitOption.dir = dir
+        datas.hitOption.changed = true
+    end
 
     local function tick()
         if datas.removed then return end
@@ -65,7 +72,12 @@ function w.window(args)
         datas.right = right
         datas.up = up
         datas.forward = forward
-        datas.cursor = hit.hit(datas.pos, right, up)
+        if datas.hitOption.changed then
+            datas.cursor = hit.hit(datas.pos, right, up, datas.hitOption.origin,
+                datas.hitOption.dir)
+        else
+            datas.cursor = hit.hit(datas.pos, right, up)
+        end
         if datas.cursor ~= nil then
             datas.cursor = datas.cursor * 16
             datas.cursor = datas.cursor + vec(datas.size.x / 2, datas.size.y / 2)
@@ -82,7 +94,12 @@ function w.window(args)
         else
             datas.hovered = false
         end
+
+        datas.hitOption.origin = nil
+        datas.hitOption.dir = nil
+        datas.hitOption.changed = false
     end
+
     local function render(delta)
         if datas.removed then return end
         if delta == nil then delta = 0 end
@@ -99,17 +116,22 @@ function w.window(args)
         datas.positionPart:remove()
     end
     local returns = {}
-    returns.getPos = (function() return datas.pos:copy() end)
-    returns.getRot = (function() return datas.rot:copy() end)
-    returns.getSize = (function() return datas.size:copy() end)
-    returns.setPos = (function(newPos) datas.pos = newPos:copy() end)
-    returns.setRot = (function(newRot) datas.rot = newRot:copy() end)
-    returns.setSize = (function(newSize) datas.size = newSize:copy() end)
+    returns.window = {}
+    returns.window.getPos = (function() return datas.pos:copy() end)
+    returns.window.getRot = (function() return datas.rot:copy() end)
+    returns.window.getSize = (function() return datas.size:copy() end)
+    returns.window.setPos = (function(newPos) datas.pos = newPos:copy() end)
+    returns.window.setRot = (function(newRot) datas.rot = newRot:copy() end)
+    returns.window.setSize = (function(newSize) datas.size = newSize:copy() end)
+    returns.part = {}
+    returns.part.newRect = (function() end)
     returns.getCursor = (function() return (datas.cursor or vec(0, 0)):copy() end)
     returns.isHovered = (function() return datas.hovered end)
     returns.getPath = (function() return datas.moveOrigin end)
     returns.debug = {}
     returns.debug.getdata = (function() return datas end)
+    returns.debug.getRawHit = (function() return datas.cursor end)
+    returns.setHitOption = setHitOption
     returns.tick = tick
     returns.render = render
     returns.remove = remove

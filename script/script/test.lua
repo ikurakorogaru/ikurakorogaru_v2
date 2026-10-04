@@ -11,7 +11,7 @@ ping.set("command.test", function() return "aaaa" end, true)
 ping.set("command.test.getcursor",
     (function() return tostring(usewindow.getCursor()) .. tostring(usewindow.isHovered()) end), true)
 events.ENTITY_INIT:register(function()
-    errorhandler.errorhandler("test_window_init", true, function()
+    errorhandler.errorhandler("test_window_init", true, true, function()
         usewindow = window.window({
             x = player:getPos().x,
             y = player:getPos().y + 1.5,
@@ -22,7 +22,7 @@ events.ENTITY_INIT:register(function()
             yaw = 30,
             roll = 30,
             path = "model",
-            name = "test_window"
+            name = "test_window",
         })
         cursor = rect.newrect({
             path = usewindow.getPath(),
@@ -39,12 +39,13 @@ events.ENTITY_INIT:register(function()
             light = 15,
             world = false,
         })
-        usewindow.setRot(vec(0, 0, 0))
-        hittestcursolX = models.model.test_window.test_window_rotation.test_window_moveorigin:newText(
+        usewindow.window.setRot(vec(0, 0, 0))
+        hittestcursolX = models.model.test_window.test_window_rotation.test_window_moveorigin
+        :newText(
             "testcursoloverlay")
         hittestcursolX:setText("testext")
         hittestcursolX:setScale(0.1)
-        hittestcursolX:setPos(vec(usewindow.getSize().x, usewindow.getSize().y, 0))
+        hittestcursolX:setPos(vec(usewindow.window.getSize().x, usewindow.window.getSize().y, 0))
         -- hittestcursolX:setAlignment("CENTER")
         hittestcursolX:setOpacity(1)
     end)
@@ -52,14 +53,15 @@ end)
 events.render:register(function(delta)
     if hittestcursolX ~= nil then
         usewindow.render(delta)
-        hittestcursolX:setText(tostring(usewindow.getCursor()) .. "\n" .. tostring(usewindow.isHovered()))
+        hittestcursolX:setText(tostring(usewindow.getCursor()) ..
+        "\n" .. tostring(usewindow.isHovered()))
         if usewindow.isHovered() then
             cursor.positionPart:setPos(vec(usewindow.getCursor().x, usewindow.getCursor().y, -0.01))
         end
     end
     if player:isLoaded() then
         if ping.get("actionwheel.hittest") then
-            errorhandler.errorhandler("hit_test", true, function()
+            errorhandler.errorhandler("hit_test", true, true, function()
                 local nowpos = player:getPos()
                 local origin = nowpos + vec(0, 0, 5)
                 local right = vec(1, 0, 0)

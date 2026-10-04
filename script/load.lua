@@ -1,7 +1,8 @@
 local directorys = {
-    "script.script.setups", "script.lib.external.patpat",
+    "script.script.setups",
+    "script.lib.external.patpat",
     "script.script.mainmodel.head.wavemove", "script.script.actionwheel",
-    "script.script.test", "script.script.linemove","script.script.command"
+    "script.script.test", "script.script.linemove", "script.script.command",
 }
 local errors = 0
 local errormsgs = {}
@@ -24,5 +25,5 @@ events.entity_init:register(function()
     end
 end)
 _G.errors = _G.errors or {}
-_G.errors.scriptLoad = {count = errors, msgs = errormsgs}
+_G.errors.scriptLoad = { count = errors, msgs = errormsgs }
 _G.errors.errorTotal = errors + (_G.errors.errorTotal or 0)
