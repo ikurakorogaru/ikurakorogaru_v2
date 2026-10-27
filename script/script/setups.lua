@@ -1,25 +1,27 @@
 vanilla_model.PLAYER:setVisible(false)
 events.entity_init:register(function()
     local lastmsg = {}
-    local hoverdmsg =
+    local hoverdmsg = 
     [[
-§5local §fGitHub = §3https://github.com/ikurakorogaru
+§5local §fGitHub = §b"https://github.com/ikurakorogaru"
 ]]
     if player:getName() == "ikurakorogaru" or player:getName() == "tarakotodomaru" then
         hoverdmsg = hoverdmsg ..
             [[
-§5local §faccounts = §5{§3ikurakorogaru §f, §3tarakotodomaru§5}
+§5local §faccounts = §5{§b"ikurakorogaru" §f, §b"tarakotodomaru"§5}
+§5local §fpronouns = §b"any"
 ]]
     else
         hoverdmsg = hoverdmsg ..
             [[
-§5local §fcreater = §5{§3ikurakorogaru §f, §3tarakotodomaru§5}
+§5local §foriginal_creator = §5{§b"ikurakorogaru" §f, §b"tarakotodomaru"§5}
 ]]
     end
     hoverdmsg = hoverdmsg .. [[
-§5local §flanguages = §5{§3Japanese(native) §f, §3English(partial <=1%)§5}
-§5local §favatar_repo = §3https://github.com/ikurakorogaru/ikurakorogaru_v2
-§5local §flicense = §3MIT
+§5local §flanguages = §5{§b"Japanese(native)" §f, §b"English(partial <=1%)"§5}
+§5local §ftimezone = §b"UTC+9"
+§5local §favatar_repo = §b"https://github.com/ikurakorogaru/ikurakorogaru_v2"
+§5local §flicense = §b"MIT"
 ]]
     if _G.errors.errorTotal == 0 then
         if player:getName() == "tarakotodomaru" or player:getName() == "ikurakorogaru" then
