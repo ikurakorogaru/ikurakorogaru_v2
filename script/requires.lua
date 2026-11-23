@@ -2,12 +2,12 @@ local directories = {
 	["external"] = {
 		["patpat"] = "script.lib.external.patpat",
 	},
-    ["layer1"] = {
-        ["hit"] = "script.lib.layer1.hit",
+	["layer1"] = {
+		["hit"] = "script.lib.layer1.hit",
 		["utils"] = {
 			["string"] = "script.lib.layer1.utils.string",
 			["table"] = "script.lib.layer1.utils.table",
-            ["number"] = "script.lib.layer1.utils.number",
+			["number"] = "script.lib.layer1.utils.number",
 			["other"] = "script.lib.layer1.utils.other",
 		},
 	},
@@ -64,7 +64,7 @@ if host:isHost() then
 end
 
 _G.errors = _G.errors or {}
-_G.errors.moduleLoad = {count = errortotal, msgs = errormsgs}
+_G.errors.moduleLoad = { count = errortotal, msgs = errormsgs }
 _G.errors.errorTotal = errortotal + (_G.errors.errorTotal or 0)
 
 return directories

@@ -1,5 +1,5 @@
 -- local hit = require("script.requires")["layer1"].hit
--- local errorhandler = require("script.requires")["layer3"].errorhandler
+local errorhandler = require("script.requires")["layer3"].errorhandler
 -- local rect = require("script.requires")["layer2"]["draw"].rect
 -- local ping = require("script.requires")["layer2"].ping
 -- local window = require("script.requires")["layer4"].window

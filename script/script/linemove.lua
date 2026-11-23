@@ -48,9 +48,6 @@ events.TICK:register(function()
             move = move - up
             pressed = true
         end
-        if keyFast:isPressed() then
-            move = move * 2
-        end
 
         if pressed then
             speed = speed * 1.02
@@ -58,7 +55,9 @@ events.TICK:register(function()
             if move:length() > 0 then
                 move = move:normalized()
             end
-
+            if keyFast:isPressed() then
+                move = move * 2
+            end
             silly:setVelocity(move * speed)
         else
             speed = 0.5

@@ -60,13 +60,13 @@ function w.window(args)
     datas.background = rect.newrect(datas.defrectargs).sprite
 
     datas.hitOption = {}
-    local function setHitOption(origin, dir)
+    local function setHitOption(self, origin, dir)
         datas.hitOption.origin = origin
         datas.hitOption.dir = dir
         datas.hitOption.changed = true
     end
 
-    local function tick()
+    local function tick(self)
         if datas.removed then return end
         local right, up, forward = utils.other.rotToVectors(datas.rot.x, datas.rot.y, datas.rot.z)
         datas.right = right
@@ -100,7 +100,7 @@ function w.window(args)
         datas.hitOption.changed = false
     end
 
-    local function render(delta)
+    local function render(self, delta)
         if datas.removed then return end
         if delta == nil then delta = 0 end
         datas.positionPart:setPos(datas.pos * 16)
@@ -108,29 +108,29 @@ function w.window(args)
         datas.background:setSize(datas.size)
         datas.moveOrigin:setPos(vec(-datas.size.x / 2, -datas.size.y / 2, 0))
     end
+    
 
 
-
-    local function remove()
+    local function remove(self)
         datas.removed = true
         datas.positionPart:remove()
     end
     local returns = {}
     returns.window = {}
-    returns.window.getPos = (function() return datas.pos:copy() end)
-    returns.window.getRot = (function() return datas.rot:copy() end)
-    returns.window.getSize = (function() return datas.size:copy() end)
-    returns.window.setPos = (function(newPos) datas.pos = newPos:copy() end)
-    returns.window.setRot = (function(newRot) datas.rot = newRot:copy() end)
-    returns.window.setSize = (function(newSize) datas.size = newSize:copy() end)
+    returns.window.getPos = (function(self) return datas.pos:copy() end)
+    returns.window.getRot = (function(self) return datas.rot:copy() end)
+    returns.window.getSize = (function(self) return datas.size:copy() end)
+    returns.window.setPos = (function(self, newPos) datas.pos = newPos:copy() return self end)
+    returns.window.setRot = (function(self, newRot) datas.rot = newRot:copy() return self end)
+    returns.window.setSize = (function(self, newSize) datas.size = newSize:copy() return self end)
     returns.part = {}
-    returns.part.newRect = (function() end)
-    returns.getCursor = (function() return (datas.cursor or vec(0, 0)):copy() end)
-    returns.isHovered = (function() return datas.hovered end)
-    returns.getPath = (function() return datas.moveOrigin end)
+    returns.part.newLabel = (function(self) end)
+    returns.getCursor = (function(self) return (datas.cursor or vec(0, 0)):copy() end)
+    returns.isHovered = (function(self) return datas.hovered end)
+    returns.getPath = (function(self) return datas.moveOrigin end)
     returns.debug = {}
-    returns.debug.getdata = (function() return datas end)
-    returns.debug.getRawHit = (function() return datas.cursor end)
+    returns.debug.getdata = (function(self) return datas end)
+    returns.debug.getRawHit = (function(self) return datas.cursor end)
     returns.setHitOption = setHitOption
     returns.tick = tick
     returns.render = render
